@@ -1,53 +1,182 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="description" content="Blog">
-        <meta name="keywords" content="NET NODEJS">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-        <title>lmssong's Blog</title>
-        <meta name="renderer" content="webkit">
-        <meta http-equiv="Cache-Control" content="no-siteapp"/>
-        <link rel="icon" type="image/png" href="assets/i/favicon.png">
-        <meta name="mobile-web-app-capable" content="yes">
-        <link rel="icon" sizes="192x192" href="assets/i/app-icon72x72@2x.png">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
-        <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
-        <meta name="msapplication-TileImage" content="assets/i/app-icon72x72@2x.png">
-        <meta name="msapplication-TileColor" content="#0e90d2">
-        <link rel="stylesheet" href="assets/css/amazeui.min.css">
-        <link rel="stylesheet" href="assets/css/app.css">
-</head>
-<body>
-    <header class="am-g am-g-fixed blog-fixed blog-text-center blog-header">
-            <div class="am-u-sm-8 am-u-sm-centered">
-                <h1><%= title%></h1>
-                <!-- <img width="200" src="http://s.amazeui.org/media/i/brand/amazeui-b.png" alt="Amaze UI Logo"/> -->
-                <h2 class="am-hide-sm-only"><%= titleDiscription%></h2>
-            </div>
-    </header>
-    <hr>
-    <nav class="am-g am-g-fixed blog-fixed blog-nav">
-    <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only blog-button" data-am-collapse="{target: '#blog-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
-    
-        <div class="am-collapse am-topbar-collapse" id="blog-collapse">
-        <ul class="am-nav am-nav-pills am-topbar-nav">
-            <li><a href="/">首页</a></li>
-            <li  class="am-active"><a href="/mapping">知识导图</a></li>
-            <li><a href="lw-img.html">文章</a></li>
-            <li><a href="lw-article-fullwidth.html">案例</a></li>
-            <li><a href="lw-timeline.html">关于</a></li>
-        </ul>
-        <form class="am-topbar-form am-topbar-right am-form-inline" role="search">
-            <div class="am-form-group">
-            <input type="text" class="am-form-field am-input-sm" placeholder="搜索">
-            </div>
-        </form>
-        </div>
-    </nav>
-    <hr>
-</body>
-</html>
+
+<%include header.ejs %>
+<div style="height: 1000px;" id="canvas"/></div>
+<%include footer.ejs %>
+<script src="http://demo.qunee.com/lib/qunee-min.js"></script>
+<script>
+
+if(!window.getI18NString){getI18NString = function(s){return s;}}
+var graph = new Q.Graph('canvas');
+graph.zoomToOverview();
+
+
+function createText(host, name, x, y, anchorPosition, w, h, fontSize, fontColor, backgroundColor){
+    var text = graph.createText(name, x, y);
+    text.setStyle(Q.Styles.LABEL_BORDER, 1);
+    text.setStyle(Q.Styles.LABEL_PADDING, 5);
+    text.setStyle(Q.Styles.LABEL_BORDER_STYLE, "#2F4F4F");
+    text.tooltipType = "text";
+    if(host){
+        text.host = text.parent = host;
+    }
+    if(anchorPosition){
+        text.anchorPosition = anchorPosition;
+        text.setStyle(Q.Styles.LABEL_ALIGN_POSITION, anchorPosition);
+    }
+    if(w && h){
+        text.setStyle(Q.Styles.LABEL_SIZE, new Q.Size(w, h));
+    }
+
+    text.setStyle(Q.Styles.LABEL_FONT_SIZE, fontSize || 14);
+    text.setStyle(Q.Styles.LABEL_COLOR, fontColor || "#555");
+    text.setStyle(Q.Styles.LABEL_BACKGROUND_COLOR, backgroundColor || "#FFF");
+//    text.setStyle(Q.Styles.LABEL_BACKGROUND_GRADIENT, new Q.Gradient(Q.Consts.GRADIENT_TYPE_LINEAR, ['#00d4f9', '#1ea6e6'], null, Math.PI/2));
+    return text;
+}
+
+function createNode(name, x, y, color){
+    var node = graph.createText(name, x, y);
+    node.setStyle(Q.Styles.LABEL_POSITION, Q.Position.CENTER_MIDDLE);
+    node.setStyle(Q.Styles.LABEL_ANCHOR_POSITION, Q.Position.CENTER_MIDDLE);
+    node.setStyle(Q.Styles.LABEL_BACKGROUND_COLOR, color);
+    node.setStyle(Q.Styles.LABEL_SIZE, new Q.Size(150, 70));
+    node.setStyle(Q.Styles.LABEL_RADIUS, 0);
+    node.setStyle(Q.Styles.LABEL_FONT_SIZE, 18);
+    node.setStyle(Q.Styles.LABEL_COLOR, "#555");
+    node.setStyle(Q.Styles.BORDER, 1);
+    node.setStyle(Q.Styles.BORDER_COLOR, "#555");
+    node.setStyle(Q.Styles.BORDER_RADIUS, 0);
+    return node;
+}
+
+function createEdge(from, to, type, lineWidth, color){
+    var edge = graph.createEdge(from.name + " --> " + to.name, from, to);
+    edge.setStyle(Q.Styles.EDGE_COLOR, color || "#000");
+    edge.setStyle(Q.Styles.EDGE_WIDTH, lineWidth || 2);
+    edge.edgeType = type || Q.Consts.EDGE_TYPE_DEFAULT;
+    return edge;
+}
+
+
+var root1 = createNode(".NET", -500, 320, "#ccc2da");
+
+var net1 = createNode(".Net FrameWork", -200, 150, "#dadada");
+var net2 = createNode(".Net Core", -200, 500, "#e6b9b9");
+
+createEdge(root1, net1,null,1,'blue');
+createEdge(root1, net2,null,1,'blue');
+
+var server1 = graph.createNode("精通了解", 0, 350);
+
+createEdge(net1, server1,null,1,'blue');
+createEdge(net2, server1,null,1,'blue');
+
+var html1 = createText(null, "Web应用(B/S)", 470, -200, Q.Position.CENTER_TOP, 572, 500, 30, "#2eaae6");
+var html2 = createText(null, "桌面应用(C/S)", 470, 400, Q.Position.CENTER_TOP, 572, 300, 30, "#2eaae6");
+
+var edge1 =  createEdge(server1, html1,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,1,'red');
+edge1.setStyle(Q.Styles.EDGE_LINE_DASH, [2, 1]);
+edge1.setStyle(Q.Styles.ARROW_TO_LINE_DASH, [2, 1]);
+
+var edge2 =  createEdge(server1, html2,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,1,'red');
+edge1.setStyle(Q.Styles.EDGE_LINE_DASH, [2, 1]);
+edge1.setStyle(Q.Styles.ARROW_TO_LINE_DASH, [2, 1]);
+
+createText(html1, "Webform", 470, -100, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html1, "Asp.net", 470, 0, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html1, "MVC", 470, 100, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html1, "WebService", 470, 200, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+
+createText(html1,'三层架构',660,-100);
+createText(html1,'ORM框架',660,-50);
+
+createText(html1,'EF',660,0);
+createText(html1,'AutoMapper',660,50);
+createText(html1,'NHibernate',660,100);
+
+createText(html2, "Winform", 470, 500, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html2, "Wpf", 470, 600, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html2,'Mvvm',550,660);
+
+var server2 = graph.createNode("熟练运用", 850, 350);
+
+var edge3 =  createEdge(html1, server2,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,1,'red');
+
+var edge4 =  createEdge(html2, server2,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,1,'red');
+edge4.setStyle(Q.Styles.EDGE_LINE_DASH, [2, 1]);
+edge4.setStyle(Q.Styles.ARROW_TO_LINE_DASH, [2, 1]);
+
+var html3 = createText(null, "Js框架", 1100, -200, Q.Position.CENTER_TOP, 250, 230, 30, "#2eaae6");
+createText(html3,'Jquery',1100,-130);
+createText(html3,'Vue.js',1030,-110);
+createText(html3,'Angular.js',1100,-70);
+createText(html3,'knockout.js',1160,-30);
+createText(html3,'...',1190,10);
+
+var html4 = createText(null, "UI", 1100, 100, Q.Position.CENTER_TOP, 250, 230, 30, "#2eaae6");
+createText(html4,'BootStrap',1100,150);
+createText(html4,'Ext.net',1030,190);
+createText(html4,'easyUI',1100,230);
+createText(html4,'Amazeui',1160,270);
+createText(html4,'...',1030,300);
+
+var html5 = createText(null, "IOC及常用工具类", 1100, 400, Q.Position.CENTER_TOP, 250, 230, 30, "#2eaae6");
+createText(html5,'Autofac',1120,470);
+createText(html5,'工厂模式',1030,500);
+createText(html5,'Log4.Net',1100,540);
+createText(html5,'Newtonsoft.Json',1160,580);
+createText(html5,'NPOI.dll',1030,620);
+
+var edge5 = createEdge(server2, html3, Q.Consts.EDGE_TYPE_ELBOW);
+var edge6 = createEdge(server2, html4, Q.Consts.EDGE_TYPE_ELBOW);
+var edge7 = createEdge(server2, html5, Q.Consts.EDGE_TYPE_ELBOW);
+
+edge5.setStyle(Q.Styles.EDGE_LINE_DASH, [2, 1]);
+edge5.setStyle(Q.Styles.ARROW_TO_LINE_DASH, [2, 1]);
+
+
+edge6.setStyle(Q.Styles.EDGE_LINE_DASH, [8, 4, 0.01, 4]);
+edge6.setStyle(Q.Styles.LINE_CAP, "round");
+edge6.setStyle(Q.Styles.ARROW_TO, Q.Consts.SHAPE_TRIANGLE);
+edge6.setStyle(Q.Styles.ARROW_TO_SIZE, {width: 16, height: 14});
+edge6.setStyle(Q.Styles.ARROW_TO_STROKE, 1);
+edge6.setStyle(Q.Styles.ARROW_TO_STROKE_STYLE, "#000");
+edge6.setStyle(Q.Styles.ARROW_TO_FILL_GRADIENT, Q.Gradient.RAINBOW_LINEAR_GRADIENT_VERTICAL);
+edge6.setStyle(Q.Styles.ARROW_FROM, Q.Consts.SHAPE_CIRCLE);
+edge6.setStyle(Q.Styles.ARROW_FROM_SIZE, 8);
+edge6.setStyle(Q.Styles.EDGE_OUTLINE, 1);
+edge6.setStyle(Q.Styles.EDGE_OUTLINE_STYLE, "#0F0");
+
+edge7.setStyle(Q.Styles.EDGE_LINE_DASH, [8, 4, 0.01, 4]);
+edge7.setStyle(Q.Styles.LINE_CAP, "round");
+edge7.setStyle(Q.Styles.ARROW_TO, Q.Consts.SHAPE_TRIANGLE);
+edge7.setStyle(Q.Styles.ARROW_TO_SIZE, {width: 16, height: 14});
+edge7.setStyle(Q.Styles.ARROW_TO_STROKE, 1);
+edge7.setStyle(Q.Styles.ARROW_TO_STROKE_STYLE, "#000");
+edge7.setStyle(Q.Styles.ARROW_TO_FILL_GRADIENT, Q.Gradient.RAINBOW_LINEAR_GRADIENT_VERTICAL);
+edge7.setStyle(Q.Styles.ARROW_FROM, Q.Consts.SHAPE_CIRCLE);
+edge7.setStyle(Q.Styles.ARROW_FROM_SIZE, 8);
+edge7.setStyle(Q.Styles.EDGE_OUTLINE, 1);
+edge7.setStyle(Q.Styles.EDGE_OUTLINE_STYLE, "#0F0");
+
+var offset = 0;
+var index = 0;
+var timer = setInterval(function(){
+    offset += -1;
+    edge5.setStyle(Q.Styles.EDGE_LINE_DASH_OFFSET, offset);
+    edge6.setStyle(Q.Styles.EDGE_LINE_DASH_OFFSET, offset);
+    edge7.setStyle(Q.Styles.EDGE_LINE_DASH_OFFSET, offset);
+
+    index++;
+    index = index%20;
+    edge1.setStyle(Q.Styles.ARROW_TO_OFFSET, -0.3 -0.02 * (20 - index));
+    edge2.setStyle(Q.Styles.ARROW_TO_OFFSET, -0.3 -0.02 * (20 - index));
+    edge5.setStyle(Q.Styles.ARROW_FROM_OFFSET, {x: 0.3 + 0.02 * (20 - index), y: -10});
+    edge6.setStyle(Q.Styles.ARROW_FROM_OFFSET, {x: 0.3 + 0.02 * (20 - index), y: -10});
+    edge7.setStyle(Q.Styles.ARROW_FROM_OFFSET, {x: 0.3 + 0.02 * (20 - index), y: -10});
+}, 150);
+
+
+</script>
+
+
