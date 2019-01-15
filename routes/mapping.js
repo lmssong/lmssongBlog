@@ -4,12 +4,10 @@ var ejs = require('ejs');
 
 router.get('/',function(req,res,next){
     let pageData = {
-        title: 'lmssong\'s Blog',
-        titleDiscription: '一个专注于.Net/NodeJs开发的技术博客',
-        pageTitle: '知识导图'
-    }
-    // let html = '<h1>这是知识导图</h1>'
-    // ejs.render(html,pageData);
+        title: '技术拓扑图',
+        titleDiscription: 'lmssong\'s Blog，一个专注于.Net/NodeJs开发的技术博客',
+        tabIndex: 2
+    };
     res.render('mapping',pageData);
 });
 

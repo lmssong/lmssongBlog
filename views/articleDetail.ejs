@@ -1,0 +1,11 @@
+<%include header.ejs %>
+    <div class="am-g am-g-fixed blog-fixed">
+            <div class=" am-u-sm-12 am-list-main">
+                <h2 class="am-list-item-hd" ><a ><%= articleItem.Title%></a></h2>
+                <span><a class="blog-color">article&nbsp;</a></span>
+                <span>@By&nbsp;<%= articleItem.Author%>&nbsp;</span>
+                <span><%= articleItem.CreateDate%></span>
+                <div style="line-height:1.3em"><%= articleItem.Content%>...</div>
+            </div>
+    </div>
+<%include footer.ejs %>

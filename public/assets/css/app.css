@@ -223,7 +223,7 @@ a {
     color:#10D07A;
 }
 .blog-header {
-    margin-top:3rem;
+    margin-top:0rem;
 }
 @media only screen and (max-width:640px) {
     .blog-header {
@@ -287,7 +287,7 @@ a {
     height:auto;
 }
 .blog-entry-article {
-    margin:3rem 0;
+    margin:1rem 0;
     padding-bottom: 3rem;
     border-bottom: 1px solid #e5e5e5;
 }
@@ -435,6 +435,7 @@ h1 span{
     border:0.3rem solid #fff;
     padding:3rem 8rem;
     background-color:#fff;
+    opacity: 0.7;
 }
 /**
  * bug:
