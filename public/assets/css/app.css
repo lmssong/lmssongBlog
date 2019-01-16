@@ -259,6 +259,10 @@ a {
 .blog-text-center {
     text-align:center;
 }
+
+.blog-text-left {
+    text-align:left;
+}
 .blog-bor {
     border:1px solid #e5e5e5;
 }

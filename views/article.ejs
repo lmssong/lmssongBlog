@@ -4,7 +4,35 @@
 <div class="am-g am-g-fixed blog-fixed">
     
     <div data-am-widget="list_news" class="am-list-news am-list-news-default" >
-       
+            <ul data-am-widget="pagination" class="am-pagination am-pagination-default" >
+                  10条/页,共计:<%= pageObj.totalCount %>条记录&nbsp;&nbsp;
+                <% var shIndex = 0 ; %>
+                <%  for(var i=0;i < pageObj.pageCount ;i++){ %>
+                    <% var curIndex = i+1 ; %>
+                    
+                        <% if( Math.abs(pageObj.pageIndex - curIndex) < 3  ) {%>
+                            <% if(pageObj.pageIndex == curIndex) { %>
+                                <li class="am-active">
+                            <% }else{ %>
+                                <li class="">
+                            <% }%>
+                                <a href="/article?index=<%- curIndex%>" class=""> <%= curIndex %> </a>
+                            </li>
+                        <% } else { %>
+                            <% if(shIndex != 0 ){ %>
+
+                            <% }else {  %>
+                                <% shIndex = curIndex; %>
+                                <li class="">
+                                    <a href="/article?index=<%- shIndex%>" class=""> …… </a>
+                                </li>
+                               
+                            <% }%>
+                        <% }%>
+                <% } %>
+            </ul>
+      
+    
         <div class="am-list-news-bd">
             <ul class="am-list">
                 <% if(allArticles.length != 0){ %>
@@ -17,11 +45,11 @@
                                 </div>
                         
                                 <div class=" am-u-sm-8 am-list-main">
-                                    <h2 class="am-list-item-hd" ><a href="/articleDetail?id=<%= item.KID%>"><%= item.Title%></a></h2>
+                                    <h2><a href="/articleDetail?id=<%- item.KID%>"><%= item.Title%></a></h2>
                                     <span><a class="blog-color">article&nbsp;</a></span>
                                     <span>@By&nbsp;<%= item.Author%>&nbsp;</span>
                                     <span><%= item.CreateDate%></span>
-                                    <div style="line-height:1.3em"><%= item.Content%>...</div>
+                                    <div style="line-height:1.3em"><%- item.Content%>...</div>
                                 </div>
                             </li> 
                         </a>
@@ -34,7 +62,6 @@
         </div>
       
      </div>
-
           
 </div>
 

@@ -510,7 +510,7 @@ h1 {
   font-size: 1.5em;
 }
 h2 {
-  font-size: 1.25em;
+  font-size: 1em;
 }
 * + h1,
 * + h2,
@@ -518,7 +518,7 @@ h2 {
 * + h4,
 * + h5,
 * + h6 {
-  margin-top: 2em;
+  margin-top: 1px;
 }
 /* Ordered and unordered lists */
 ul,

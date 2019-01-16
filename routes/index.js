@@ -6,14 +6,12 @@ var mysql = require('../utils/mysqlService');
 router.get('/', async function(req, res, next) {
 
   var pageData = {
-      title: 'lmssong\'s Blog',
-      titleDiscription: '一个专注于.Net/NodeJs开发的技术博客',
       tabIndex: 1,
-      top1Article: await mysql.getTop1Article(),
-      next5Articles: await mysql.getNext5Articles()
+      top1Article: await mysql.getTop1Article(),//Top1 文章数据
+      next5Articles: await mysql.getNext5Articles()//Top2-6共5条文章记录数
   }
-  // console.log('xxxx:' + pageData.articleList);
-  await res.render('index', pageData);
+  console.log('lmssong\'s Blog首页:' + JSON.stringify(pageData));
+  res.render('index', pageData);
 });
 
 module.exports = router;

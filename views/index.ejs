@@ -62,11 +62,11 @@
                 </div>
                 <div class="am-u-lg-12 am-u-md-12 am-u-sm-12 blog-entry-text blog-text-center">
                     <span><a class="blog-color">article &nbsp;</a></span>
-                    <span>@By&nbsp;<%= item.Author%>&nbsp;</span>
-                    <span><%= item.CreateDate%></span>
-                    <h1><a href="/articleDetail?id=<%= item.KID%>"> <%= item.Title%></a></h1>
-                    <p>
-                        <%= item.Content %> ...
+                    <span>@By&nbsp;<%- item.Author%>&nbsp;</span>
+                    <span><%- item.CreateDate%></span>
+                    <h1><a href="/articleDetail?id=<%= item.KID%>"> <%- item.Title%></a></h1>
+                    <p class="blog-text-left">
+                        <%- item.Content %> ...
                     </p>
                 </div>
             </article>
@@ -79,11 +79,11 @@
                     </div>
                     <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
                         <span><a class="blog-color">article&nbsp;</a></span>
-                        <span>@By&nbsp;<%= item.Author%>&nbsp;</span>
-                        <span><%= item.CreateDate%></span>
-                        <h1><a href="/articleDetail?id=<%= item.KID%>"><%= item.Title%></a></h1>
+                        <span>@By&nbsp;<%- item.Author%>&nbsp;</span>
+                        <span><%- item.CreateDate%></span>
+                        <h2><a href="/articleDetail?id=<%= item.KID%>"><%- item.Title%></a></h2>
                         <p>
-                            <%= item.Content%> ...
+                           <%- item.Content%> ...
                         </p>
                     </div>
             </article>
@@ -138,7 +138,7 @@
             </ul>
         </div>
         <div class="blog-sidebar-widget blog-bor">
-                <h2 class="blog-title"><span>我的那些句子</span></h2>
+                <h2 class="blog-title"><span>My Favorite Sentences</span></h2>
                 <ul class="am-list">
                     <li><a >每个人都有一个死角， 自己走不出来，别人也闯不进去。</a></li>
                     <li><a >你不懂我，我不怪你。</a></li>
@@ -152,14 +152,14 @@
 <%include footer.ejs %>
 
 <!--[if (gte IE 9)|!(IE)]><!-->
-<script src="assets/js/jquery.min.js"></script>
+
 <!--<![endif]-->
 <!--[if lte IE 8 ]>
 <script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
-<script src="assets/js/amazeui.min.js"></script>
+
 
 
 

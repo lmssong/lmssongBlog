@@ -1,5 +1,6 @@
 
 <%include header.ejs %>
+
 <div style="height: 1000px;" id="canvas"/></div>
 <%include footer.ejs %>
 <script src="http://demo.qunee.com/lib/qunee-min.js"></script>
@@ -8,7 +9,6 @@
 if(!window.getI18NString){getI18NString = function(s){return s;}}
 var graph = new Q.Graph('canvas');
 graph.zoomToOverview();
-
 
 function createText(host, name, x, y, anchorPosition, w, h, fontSize, fontColor, backgroundColor){
     var text = graph.createText(name, x, y);
@@ -56,7 +56,6 @@ function createEdge(from, to, type, lineWidth, color){
     edge.edgeType = type || Q.Consts.EDGE_TYPE_DEFAULT;
     return edge;
 }
-
 
 var root1 = createNode(".NET", -500, 320, "#ccc2da");
 

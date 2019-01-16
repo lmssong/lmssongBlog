@@ -3,10 +3,9 @@ var router = express.Router();
 
 router.get('/',function(req,res,next){
     let pageData = {
-        title: '项目案例',
-        titleDiscription: 'lmssong\'s Blog，一个专注于.Net/NodeJs开发的技术博客',
         tabIndex: 4
     }
+    console.log('项目案例：'+ JSON.stringify(pageData));
     res.render('cases', pageData);
 });
 

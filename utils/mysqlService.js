@@ -15,7 +15,18 @@ var mysqlService = {
     getAllArticles : async function(){
         return new Promise((resolve,reject) => {
             if(conn){
-                conn.query('SELECT KID,Title,TitleDescription,Category, LEFT(Content,400) AS Content,Author,ImgUrl,DATE_FORMAT(CreateDate, \'%Y-%m-%d\') AS CreateDate FROM layadmin.`Articles` order by CreateDate desc', function(err, rows, fields) {
+                conn.query('SELECT KID,Title,TitleDescription,Category, LEFT(Content,300) AS Content,Author,ImgUrl,DATE_FORMAT(CreateDate, \'%Y-%m-%d\') AS CreateDate FROM layadmin.`Articles` order by CreateDate desc', function(err, rows, fields) {
+                    if (err) reject;
+                    console.log(JSON.stringify(rows));
+                    resolve(JSON.parse(JSON.stringify(rows)));
+                });
+            }
+        });
+    },
+    getArticlesByPage : async function(pageIndex,pageSize){
+        return new Promise((resolve,reject) => {
+            if(conn){
+                conn.query('SELECT KID,Title,TitleDescription,Category, LEFT(Content,300) AS Content,Author,ImgUrl,DATE_FORMAT(CreateDate, \'%Y-%m-%d\') AS CreateDate FROM layadmin.`Articles` order by CreateDate desc limit ?,?', [(pageIndex-1)*pageSize,pageSize],function(err, rows, fields) {
                     if (err) reject;
                     console.log(JSON.stringify(rows));
                     resolve(JSON.parse(JSON.stringify(rows)));
