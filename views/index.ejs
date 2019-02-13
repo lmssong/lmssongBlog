@@ -58,7 +58,7 @@
         <% top1Article.forEach(function(item){%>
             <article class="am-g blog-entry-article">
                 <div class="am-u-lg-12 am-u-md-12 am-u-sm-12 am-u-sm-centered blog-entry-img">
-                    <img src="assets/i/f10.jpg" alt="" class="am-u-sm-12">
+                    <img src="<%- item.ImgUrl%>" alt="" class="am-u-sm-12" style="height:400px;">
                 </div>
                 <div class="am-u-lg-12 am-u-md-12 am-u-sm-12 blog-entry-text blog-text-center">
                     <span><a class="blog-color">article &nbsp;</a></span>
@@ -75,7 +75,7 @@
         <% next5Articles.forEach(function(item){%>
             <article class="am-g blog-entry-article">
                     <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-                        <img src="assets/i/f6.jpg" alt="" class="am-u-sm-12">
+                        <img src="<%- item.ImgUrl%>" alt="" class="am-u-sm-12">
                     </div>
                     <div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
                         <span><a class="blog-color">article&nbsp;</a></span>

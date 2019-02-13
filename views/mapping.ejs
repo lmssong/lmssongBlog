@@ -176,6 +176,44 @@ var timer = setInterval(function(){
 }, 150);
 
 
+var root2 = createNode("移动应用", -500, 1000, "#ccc2da");
+
+var app1 = createNode("微信、公众号简单开发", -100, 900, "#dadada");
+var app2 = createNode("小程序简单开发和应用", -100, 1100, "#e6b9b9");
+
+createEdge(root2, app1,null,1,'red');
+createEdge(root2, app2,null,1,'red');
+
+var app201 = createNode("支持组件化开发的框架-Wepy", 300, 1100, "#e6b9b9");
+createEdge(app2, app201,null,1,'blue');
+
+// var root3 = createNode("Nodejs", -500, 1350, "#aac2da");
+var html3 = createText(null, "Node平台", 100, 1200, Q.Position.CENTER_TOP, 572, 300, 30, "#2eaae6");
+createText(html3, "express", -50, 1300, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html3, "koa2", -50, 1400, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html3, "npm", 140, 1300, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html3, "中间件", 140, 1400, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html3, "jade", 300, 1300, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html3, "ejs", 300, 1400, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+// createEdge(root3, html31,null,1,'green');
+
+var html4 = createText(null, "数据库", 850, 1200, Q.Position.CENTER_TOP, 572, 300, 30, "#2eaae6");
+createText(html4, "Sqlserver", 750, 1250, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html4, "Oracle", 750, 1350, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html4, "Mysql", 950, 1300, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html4, "Mongodb、Redis学习中", 950, 1430, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+
+var html5 = createText(null, "项目管理", 1600, 1200, Q.Position.CENTER_TOP, 572, 300, 30, "#2eaae6");
+createText(html5, "需求管理", 1500, 1250, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html5, "沟通管理", 1500, 1350, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html5, "质量管理", 1700, 1300, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+createText(html5, "文档与服务管理", 1700, 1430, Q.Position.CENTER_TOP, 100, 50, 30, "#2E8B57");
+
+var edge99 =  createEdge(root1, root2,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,3,'red');
+var edge98 =  createEdge(root2, html3,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,3,'red');
+var edge97 =  createEdge(html3, html4,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,3,'red');
+var edge96 =  createEdge(html4, html5,Q.Consts.EDGE_TYPE_VERTICAL_HORIZONTAL,3,'red');
+
 </script>
 
 
